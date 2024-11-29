@@ -91,6 +91,32 @@ modalCloses.forEach((modalClose) => {
     })
 })
 
+/*==================== Portfolio MODAL ====================*/
+const pmodalViews = document.querySelectorAll('.portfolios__modal'),
+    pmodalBtns = document.querySelectorAll('.portfolios__button'),
+    pmodalCloses = document.querySelectorAll('.portfolios__modal-close')
+
+let pmodal = (pmodalClick) => {
+    console.log(pmodalClick, pmodalViews)
+    pmodalViews[pmodalClick].classList.add('portfolios-active-modal')
+    console.log(pmodalClick, pmodalViews)
+}  
+
+pmodalBtns.forEach((pmodalBtn, i) => {
+    console.log(pmodalBtn, i)
+    pmodalBtn.addEventListener('click', () => {
+        pmodal(i)
+    })
+})
+
+pmodalCloses.forEach((pmodalClose) => {
+    pmodalClose.addEventListener('click', () => {
+        pmodalViews.forEach((pmodalView) => {
+            pmodalView.classList.remove('portfolios-active-modal')
+        })
+    })
+})
+
 /*==================== PORTFOLIO SWIPER  ====================*/
 let swiperPortfolio = new Swiper(".portfolio__container", {
     cssMode: true,

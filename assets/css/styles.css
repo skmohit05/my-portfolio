@@ -633,7 +633,7 @@ img {
 .services__content {
     position: relative;
     background-color: var(--container-color);
-    padding: 3.5rem .5rem 1.25rem 1.5rem;
+    padding: 2rem 2rem 2rem 2rem;
     border-radius: .25rem;
     box-shadow: 0 2px 4px rgba(0,0,0,.15);
     transition: .3s;
@@ -733,8 +733,24 @@ img {
 
 .portfolio__img {
     width: 265px;
+    height: 200px;
     border-radius: .5rem;
     justify-self: center;
+}
+
+.text-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  text-align: center; /* Align text in the middle */
+}
+
+.text-center-row {
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+  text-align: center; /* Align text in the middle */
 }
 
 .portfolio__title {
@@ -780,6 +796,67 @@ img {
 .swiper-button-next,
 .swiper-pagination-bullet {
     outline: none;
+}
+
+.portfolios__button {
+    cursor: pointer;
+}
+
+.portfolios__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    z-index: var(--z-modal);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+}
+
+.portfolios__modal-content {
+    position: relative;
+    background-color: var(--container-color);
+    padding: 1.5rem;
+    border-radius: .5rem;
+}
+
+.portfolios__modal-services {
+    row-gap: 1rem;
+}
+
+.portfolios__modal-service {
+    display: flex;
+}
+
+.portfolios__modal-title {
+    font-size: var(--h3-font-size);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--mb-1-5);
+}
+
+.portfolios__modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: var(--first-color);
+    cursor: pointer;
+}
+
+.portfolios__modal-icon {
+    color: var(--first-color);
+    margin-right: var(--mb-0-25);
+}
+/* Active Modal */
+.portfolios-active-modal {
+    opacity: 1;
+    visibility: visible;
 }
 
 /*==================== PROJECT IN MIND ====================*/
@@ -1033,7 +1110,7 @@ img {
     }
 
     .services__content {
-        padding-right: 3.5rem;
+        padding-right: 2rem;
     }
 
     .services__modal {
@@ -1182,7 +1259,9 @@ img {
     }
 
     .home__scroll {
-        display: block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .home__scroll-button {
@@ -1231,7 +1310,7 @@ img {
     }
 
     .services__content{
-        padding: 6rem 0 2rem 2.5rem;
+        padding: 2rem;
     }
 
     .services__modal-content{
