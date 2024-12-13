@@ -71,7 +71,8 @@ tabs.forEach(tab => {
 /*==================== SERVICES MODAL ====================*/
 const modalViews = document.querySelectorAll('.services__modal'),
     modalBtns = document.querySelectorAll('.services__button'),
-    modalCloses = document.querySelectorAll('.services__modal-close')
+    modalCloses = document.querySelectorAll('.services__modal-close'),
+    modalContents = document.querySelectorAll('.services__modal-content');
 
 let modal = (modalClick) => {
     modalViews[modalClick].classList.add('active-modal')
@@ -82,6 +83,15 @@ modalBtns.forEach((modalBtn, i) => {
         modal(i)
     })
 })
+
+// Close modal when clicking on the background
+modalContents.forEach((modalContent, i) => {
+    modalViews[i].addEventListener("click", (event) => {
+    if (!modalContent.contains(event.target)) {
+        modalViews[i].classList.remove('active-modal');
+    }
+})
+});
 
 modalCloses.forEach((modalClose) => {
     modalClose.addEventListener('click', () => {
@@ -94,7 +104,8 @@ modalCloses.forEach((modalClose) => {
 /*==================== Portfolio MODAL ====================*/
 const pmodalViews = document.querySelectorAll('.portfolios__modal'),
     pmodalBtns = document.querySelectorAll('.portfolios__button'),
-    pmodalCloses = document.querySelectorAll('.portfolios__modal-close')
+    pmodalCloses = document.querySelectorAll('.portfolios__modal-close'),
+    pmodalContents = document.querySelectorAll('.portfolios__modal-content');
 
 let pmodal = (pmodalClick) => {
     console.log(pmodalClick, pmodalViews)
@@ -103,11 +114,19 @@ let pmodal = (pmodalClick) => {
 }  
 
 pmodalBtns.forEach((pmodalBtn, i) => {
-    console.log(pmodalBtn, i)
     pmodalBtn.addEventListener('click', () => {
         pmodal(i)
     })
+});
+
+// Close modal when clicking on the background
+pmodalContents.forEach((modalContent, i) => {
+    pmodalViews[i].addEventListener("click", (event) => {
+    if (!modalContent.contains(event.target)) {
+        pmodalViews[i].classList.remove('portfolios-active-modal');
+    }
 })
+});
 
 pmodalCloses.forEach((pmodalClose) => {
     pmodalClose.addEventListener('click', () => {
@@ -120,7 +139,7 @@ pmodalCloses.forEach((pmodalClose) => {
 /*==================== PORTFOLIO SWIPER  ====================*/
 let swiperPortfolio = new Swiper(".portfolio__container", {
     cssMode: true,
-    loop: true,
+    loop: false,
     navigation: {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
@@ -190,6 +209,8 @@ const themeButton = document.getElementById('theme-button')
 const darkTheme = 'dark-theme'
 const iconTheme = 'uil-sun'
 
+const nallaiImage = document.getElementById('nallai-image');
+
 // Previously selected topic (if user selected)
 const selectedTheme = localStorage.getItem('selected-theme')
 const selectedIcon = localStorage.getItem('selected-icon')
@@ -198,11 +219,17 @@ const selectedIcon = localStorage.getItem('selected-icon')
 const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light'
 const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'uil-moon' : 'uil-sun'
 
+// Function to update the image source
+const updateImage = () => {
+    nallaiImage.src = getCurrentTheme() === 'dark' ? 'assets/img/nallai/logo-dark.png' : 'assets/img/nallai/logo-light.png';
+  };
+
 // We validate if the user previously chose a topic
 if (selectedTheme) {
   // If the validation is fulfilled, we ask what the issue was to know if we activated or deactivated the dark
   document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme)
   themeButton.classList[selectedIcon === 'uil-moon' ? 'add' : 'remove'](iconTheme)
+  updateImage();
 }
 
 // Activate / deactivate the theme manually with the button
@@ -213,4 +240,39 @@ themeButton.addEventListener('click', () => {
     // We save the theme and the current icon that the user chose
     localStorage.setItem('selected-theme', getCurrentTheme())
     localStorage.setItem('selected-icon', getCurrentIcon())
+    updateImage();
 })
+
+(function() {
+    console.log("1");
+    
+    emailjs.init("skmohit05@gmail.com"); // Initialize EmailJS with your user ID
+    
+    console.log("1");
+  })();
+
+  // Submit form data to EmailJS
+  document.getElementById("contact-form").addEventListener("submit", function(event) {
+    
+    console.log("1");
+    event.preventDefault();  // Prevent the form from submitting the default way
+
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var project = document.getElementById("project").value;
+    var message = document.getElementById("message").value;
+
+    var templateParams = {
+      from_name: name,
+      from_email: email,
+      project: project,
+      message: message
+    };
+
+    emailjs.send("service_rlbckuf", "template_yy17457", templateParams)
+      .then(function(response) {
+        alert("Message sent successfully!");
+      }, function(error) {
+        alert("Failed to send message: " + error);
+      });
+  });
